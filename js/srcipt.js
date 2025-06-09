@@ -1,26 +1,26 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const track = document.querySelector(".carousel-track");
-    const items = document.querySelectorAll(".carousel-item");
-    const prevButton = document.getElementById("prev");
-    const nextButton = document.getElementById("next");
+document.addEventListener('DOMContentLoaded', () => {
+    const track = document.querySelector('.carousel-track');
+    let items = Array.from(track.children);
 
-    let currentIndex = 0;
-    const itemWidth = items[0].offsetWidth; // Obtendo a largura do item dinamicamente
-    const totalItems = items.length;
-
-    function updateCarousel() {
-        const offset = -currentIndex * itemWidth;
-        track.style.transform = `translateX(${offset}px)`;
+    function renderItems() {
+        track.innerHTML = '';
+        items.forEach(item => track.appendChild(item));
     }
 
-    nextButton.addEventListener("click", () => {
-        currentIndex = (currentIndex + 1) % totalItems;
-        updateCarousel();
-    });
+    function rotateNext() {
+        const first = items.shift(); 
+        items.push(first);          
+        renderItems();
+    }
 
-    prevButton.addEventListener("click", () => {
-        currentIndex = (currentIndex - 1 + totalItems) % totalItems;
-        updateCarousel();
-    });
+    function rotatePrev() {
+        const last = items.pop();   
+        items.unshift(last);  
+        renderItems();
+    }
 
+    document.querySelector('.button.right').addEventListener('click', rotateNext);
+    document.querySelector('.button.left').addEventListener('click', rotatePrev);
+
+    setInterval(rotateNext, 10000);
 });
