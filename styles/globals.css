@@ -429,3 +429,13 @@ main{
     height: 220px;
 }
 
+a button{
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: #b17544;
+    padding: 10px;
+    margin: 2px;    
+    position: relative;
+    width:100%;
+}
